@@ -1,15 +1,40 @@
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.imageio.ImageIO;
 
 
 public class App {
+    static String ColorToStringFormat(String inputString, String hexValue, String identifier){
+        return inputString.replaceAll(identifier, hexValue);
+    }
 
     public static void main(String[] args) throws IOException {
         int windowSize = 15;
+        String stringFormat = "!#[HEX](https://placehold.co/10x10/HEX/HEX.png)";
         BufferedImage pictureInput = null;
-        File fileOutput = null;
+        File filePictureOutput = null;
+        BufferedWriter writer = null;
+        //Try to open/create a textfile.
+        try {
+            File fileTextOutput = new File("Output.txt");
+            if (fileTextOutput.createNewFile()) {
+                System.out.println("File created: " + fileTextOutput.getName());
+            } else {
+                System.out.println("File already exists.");
+                PrintWriter eraser = new PrintWriter(fileTextOutput);
+                eraser.print("");
+                eraser.close();
+            }
+            writer = new BufferedWriter(new FileWriter(fileTextOutput));
+        }catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
 
         try {
             //Picture Found!
@@ -35,24 +60,27 @@ public class App {
                         rSample += (pixelSample >> 16) & 0xff; //Get Red Data
                         gSample += (pixelSample >> 8) & 0xff; //Get Green Data
                         bSample += (pixelSample) & 0xff; //Get Blue Data
-                        //String hex = "#"+Integer.toHexString(picture.getRGB(i, j)).substring(2);
+                        
                         //System.out.println((hex));
                     }
                 }
                 int pixelAverage = (255 << 24) | (rSample/(windowSize*windowSize) << 16) | (gSample/(windowSize*windowSize) << 8) | bSample/(windowSize*windowSize);
+                String hex = Integer.toHexString(pixelAverage).substring(2);
                 pictureOutput.setRGB(i, j, pixelAverage);
-                //System.out.println("Done itterating through window!");
+                writer.append(ColorToStringFormat(stringFormat,hex,"HEX"));
                 //Done itterating through the given window
             }
+            writer.append("\n");
         }
         //Done Parsing image
+        writer.close();
 
         //Try to write our file
         System.out.println("Trying to Write File");
         try {
-            fileOutput = new File(
+            filePictureOutput = new File(
                 "Sadie - Processed.png");
-            ImageIO.write(pictureOutput, "png", fileOutput);
+            ImageIO.write(pictureOutput, "png", filePictureOutput);
         }
         catch (IOException e) {
             System.out.println(e);
