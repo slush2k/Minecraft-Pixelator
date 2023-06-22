@@ -14,7 +14,7 @@ public class App {
     }
 
     public static void main(String[] args) throws IOException {
-        int windowSize = 15;
+        int windowSize = 100;
         String stringFormat = "![#HEX](https://placehold.co/10x10/HEX/HEX.png)";
         BufferedImage pictureInput = null;
         File filePictureOutput = null;
