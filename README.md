@@ -1,7 +1,7 @@
 # Minecraft Image Pixelator
 __Description:__
 
-The Minecraft Image Mapper is a Java program designed to transform source images into pixel art representations using a custom colour library based on Minecraft blocks. The program samples clusters of pixels in 16x16 areas from a source image calculates the average RGB colour for each cluster and builds an index of Minecraft blocks with their corresponding average colours. Utilizing a KD tree for efficient colour matching, the program then maps each pixel cluster from the source image to the closest matching Minecraft block colour. The resulting output generates pixel art resembling the source image, using Minecraft block textures to represent the colour composition of the original image.
+The Minecraft Image Pixelator is a Java program designed to transform source images into pixel art representations using a custom colour library based on Minecraft blocks. The program samples clusters of pixels in 16x16 areas from a source image calculates the average RGB colour for each cluster and builds an index of Minecraft blocks with their corresponding average colours. Utilizing a KD tree for efficient colour matching, the program then maps each pixel cluster from the source image to the closest matching Minecraft block colour. The resulting output generates pixel art resembling the source image, using Minecraft block textures to represent the colour composition of the original image.
 
 __Key Features:__
 
